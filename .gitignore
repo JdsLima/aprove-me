@@ -1,0 +1,58 @@
+# Dependencies
+**/node_modules
+**/.pnp
+**/.pnp.*
+**/.yarn/*
+
+# Build outputs
+**/dist
+**/build
+**/.next
+**/out
+
+# Environment files
+**/.env*
+!.env.example
+
+# IDE and Editors
+.idea
+.vscode/*
+**/*.sublime-workspace
+**/.project
+**/.classpath
+**/.settings
+**/.c9
+**/*.launch
+
+# Logs and Debug
+**/logs
+**/*.log
+**/*-debug.log*
+**/*-error.log*
+**/lerna-debug.log*
+
+# Testing and Coverage
+**/coverage
+**/.nyc_output
+
+# OS files
+**/.DS_Store
+**/*.pem
+
+# TypeScript
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# Temp and Cache
+**/.temp
+**/.tmp
+**/pids
+**/*.pid
+**/*.seed
+**/*.pid.lock
+
+# Reports
+**/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Vercel
+**/.vercel
