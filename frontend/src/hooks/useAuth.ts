@@ -6,7 +6,7 @@ export const useAuth = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('bankme_token');
 
     if (!token) {
       router.push('/');
@@ -18,11 +18,11 @@ export const useAuth = () => {
       const currentTime = Date.now() / 1000;
 
       if (decodedToken.exp && decodedToken.exp < currentTime) {
-        localStorage.removeItem('token');
+        localStorage.removeItem('bankme_token');
         router.push('/');
       }
     } catch (error) {
-      localStorage.removeItem('token');
+      localStorage.removeItem('bankme_token');
       router.push('/');
     }
   }, [router]);
