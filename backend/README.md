@@ -116,3 +116,94 @@ model Payable {
   assignor     Assignor @relation(fields: [assignorId], references: [id])
 }
 ```
+
+## 🐳 Docker
+
+### Pré-requisitos para Docker
+- Docker
+- Docker Compose
+
+### Instalação com Docker
+
+1. Clone o repositório
+```bash
+git clone https://github.com/JdsLima/aprove-me.git
+cd aprove-me/backend
+```
+
+2. Configure o arquivo .env
+```env
+DATABASE_URL="file:/app/prisma/dev.db"
+```
+
+3. Construa e inicie os containers
+```bash
+# Construir a imagem
+yarn docker:build
+
+# Iniciar os containers
+yarn docker:up
+
+# Parar os containers
+yarn docker:down
+```
+
+### Comandos Docker Úteis
+
+```bash
+# Ver logs do container
+docker-compose logs -f api
+
+# Executar migrations
+docker-compose exec api yarn prisma migrate dev
+
+# Abrir Prisma Studio
+docker-compose exec api yarn prisma studio
+
+# Acessar o shell do container
+docker-compose exec api sh
+
+# Ver status dos containers
+docker-compose ps
+```
+
+### Estrutura Docker
+
+O projeto utiliza dois arquivos principais para Docker:
+
+1. `Dockerfile`:
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+RUN npm install -g yarn
+COPY package.json yarn.lock ./
+COPY prisma ./prisma/
+RUN yarn install
+RUN yarn prisma generate
+COPY . .
+EXPOSE 3000
+CMD ["yarn", "dev"]
+```
+
+2. `docker-compose.yml`:
+```yaml
+version: '3.8'
+services:
+  api:
+    build: .
+    container_name: api
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=file:/app/prisma/dev.db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    # Adicione healthcheck para garantir que o serviço está rodando
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+```
