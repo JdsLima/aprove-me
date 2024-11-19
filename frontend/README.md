@@ -1,36 +1,146 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BankMe Frontend
 
-## Getting Started
+Interface web do desafio técnico da aplicação AproveMe, desenvolvida com Next.js para gerenciamento de recebíveis.
 
-First, run the development server:
+## 🚀 Tecnologias
 
+- [Next.js 14](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Jest](https://jestjs.io/) & [Testing Library](https://testing-library.com/)
+
+## 📋 Pré-requisitos
+
+- Node.js (versão 18 ou superior)
+- npm ou yarn
+
+## 🔧 Instalação
+
+1. Clone o repositório
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/bankme.git
+cd bankme/frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale as dependências
+```bash
+yarn install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏃‍♂️ Executando a aplicação
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# desenvolvimento
+yarn dev
 
-## Learn More
+# build de produção
+yarn build
 
-To learn more about Next.js, take a look at the following resources:
+# executar versão de produção
+yarn start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Acesse [http://localhost:3001](http://localhost:3001) no seu navegador.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## 🎨 Funcionalidades
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Cedentes
+- Cadastro de novos cedentes
+- Listagem de cedentes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+### Pagáveis
+- Registro de novos pagáveis
+- Visualização de lista de pagáveis
+- Atualização de status
+- Remoção de pagáveis
+
+## 🏗️ Estrutura do Projeto
+
+```
+src/
+├── app/                # Rotas e páginas
+│   ├── home/          # Página inicial após login
+│       ├── list-receivables/      
+│           ├── details/     #pagina secundaria de detalhes de um recebível   
+|                ├── assignors/     #pagina secundaria de detalhes de um cedente 
+│           ├── edit/           #pagina de edição de um recebível    
+│       ├── register-assignor/    # Página de cadastro de cedentes
+│       ├── register-receivables/  # Página de cadastro de recebíveis
+│           ├── details/     #pagina de detalhes de um recebível   
+|   ├── page/          # Página inicial
+│   └── layout.tsx     # Layout principal
+├── components/        # Componentes reutilizáveis
+│   ├── Aside/         # Barra lateral
+│   ├── Breadcrumb/    # Navegação
+│   ├── CustomToast/    # Toast customizado
+│   ├── LoginForm/      # Formulário de login
+├── hooks/             # Custom hooks
+├── services/          # Serviços e API
+```
+
+## 📱 Layout Responsivo
+
+O projeto é totalmente responsivo e se adapta a diferentes tamanhos de tela:
+- Desktop (1024px+)
+- Tablet (768px - 1023px)
+- Mobile (até 767px)
+
+## 📦 Scripts Disponíveis
+
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+  }
+}
+```
+
+## 🧩 Componentes Principais
+
+### Aside
+Barra lateral de navegação com:
+- Logo da aplicação
+- Menu de navegação
+- Toggle para modo mobile
+
+### Breadcrumb
+Navegação hierárquica mostrando:
+- Localização atual
+- Links para níveis anteriores
+- Separadores visuais
+
+### CustomToast
+Toast customizado com:
+- Mensagens de sucesso
+- Mensagens de erro
+
+### LoginForm
+Formulário de login com:
+- Campo de username
+- Campo de senha
+- Botão de login
+
+## 🎯 Boas Práticas
+
+- **Componentização**: Componentes reutilizáveis e modulares
+- **TypeScript**: Tipagem estática para maior segurança
+- **Testes**: Cobertura de testes para componentes principais
+- **Responsividade**: Layout adaptável a diferentes dispositivos
+- **Acessibilidade**: Seguindo diretrizes WCAG
+- **Performance**: Otimizações do Next.js 14
+
+## 🔄 Integração com Backend
+
+A aplicação se comunica com o backend através de:
+- Requisições HTTP
+- Gerenciamento de estado
+- Tratamento de erros
+- Feedback visual para o usuário
