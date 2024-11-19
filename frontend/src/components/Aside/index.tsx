@@ -1,9 +1,11 @@
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 
 export function Aside() {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -42,11 +44,19 @@ export function Aside() {
             aria-label="Sidebar"
         >
             <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-                <ul className="space-y-2 font-medium">
+                <Link href="/home" className="flex items-center ps-2.5 mb-5">
+                    <img
+                        src="https://bankme.tech/hs-fs/hubfs/BANKME%20AZUL%20NOVO-4.png"
+                        width={120}
+                        height={67}
+                        alt="logo"
+                    /> 
+                </Link>
+                <ul className="space-y-2 font-medium"> 
                     <li>
                         <Link 
                             href="/home/register-receivables" 
-                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${pathname === '/home/register-receivables' ? 'bg-gray-200' : ''}`}
                         >
                             <span className="ms-3">Cadastrar pagáveis</span>
                         </Link>
@@ -54,9 +64,17 @@ export function Aside() {
                     <li>
                         <Link 
                             href="/home/register-assignor" 
-                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${pathname === '/home/register-assignor' ? 'bg-gray-200' : ''}`}
                         >
                             <span className="ms-3">Cadastrar cedente</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link 
+                            href="/home/list-receivables" 
+                            className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${pathname === '/home/list-receivables' ? 'bg-gray-200' : ''}`}
+                        >
+                            <span className="ms-3">Listar pagáveis</span>
                         </Link>
                     </li>
                 </ul>
