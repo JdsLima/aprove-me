@@ -8,18 +8,33 @@ import { useEffect, useState } from "react";
 import api from "@/services/api";
 import { CustomToast } from "@/components/CustomToast";
 import { useRouter } from "next/navigation";
-type ReceivableForm = {
+export type ReceivableForm = {
     value: number;
     assignorId: string;
     emissionDate: string;
 }
 
-interface Assignors {
+export interface Assignors {
     id: string;
     document: string;
     email: string;
     phone: string;
     name: string;
+}
+
+export const validateReceivableForm = (values: ReceivableForm) => {
+    const errors: { [key in keyof ReceivableForm]?: string } = {};
+
+    if (!values.value) {
+        errors.value = "O valor é obrigatório";
+    }
+    if (!values.assignorId) {
+        errors.assignorId = "O cedente é obrigatório";
+    }
+    if (!values.emissionDate) {
+        errors.emissionDate = "A data de emissão é obrigatória";
+    }
+    return errors;
 }
 
 export default function RegisterReceivables() {
@@ -69,21 +84,6 @@ export default function RegisterReceivables() {
         fetchAssignors();
     }, []);
 
-    const validateReceivableForm = (values: ReceivableForm) => {
-        const errors: { [key in keyof ReceivableForm]?: string } = {};
-
-        if (!values.value) {
-            errors.value = "O valor é obrigatório";
-        }
-        if (!values.assignorId) {
-            errors.assignorId = "O cedente é obrigatório";
-        }
-        if (!values.emissionDate) {
-            errors.emissionDate = "A data de emissão é obrigatória";
-        }
-        return errors;
-    }
-
     return (
         <div className="flex flex-col h-screen p-4 sm:ml-64">
         <Breadcrumb routes={[{name: "Cadastrar pagáveis", href: "/home/register-receivables"}]} />
@@ -132,21 +132,21 @@ export default function RegisterReceivables() {
                             </div>
                             <div className="mb-5">
                                 <label 
-                                    htmlFor="dueDate" 
+                                    htmlFor="emissionDate" 
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
                                     Data de emissão
                                 </label>
                                 <Datepicker 
-                                    id="dueDate"
+                                    id="emissionDate"
                                     language="pt-BR"
                                     className="bg-gray-50"
                                     value={new Date(values.emissionDate)}
                                     onChange={(date) => {
-                                        setReceivableForm({
-                                            ...receivableForm,
-                                            emissionDate: date?.toISOString() ?? new Date().toISOString(),
-                                        });
+                                        setFieldValue(
+                                            "emissionDate", 
+                                            date?.toISOString() ?? new Date().toISOString()
+                                        );
                                     }}
                                 />
                                 {errors.emissionDate && <p className="text-red-500 text-sm">{errors.emissionDate}</p>}
